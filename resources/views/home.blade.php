@@ -17,6 +17,16 @@
             @method('POST')
             <button type="submit">Logout</button>
         </form>
+
+        <div>
+            <h1> create a new post </h1>
+            <form action="/create-post" method="POST">
+                @csrf
+                <input type="text" name="title" placeholder="post title">
+                <textarea name="body" placeholder=" body content..."></textarea>
+                <button> save Post</button>
+            </form>
+        </div>
     @else
         <h2>Register</h2>
         <!-- The form should properly enclose the inputs -->
@@ -31,7 +41,7 @@
 
         <h2>login</h2>
 
-        <form action="/register" method="POST">
+        <form action="/login" method="POST">
             @csrf
             <input name="loginname" type="text" placeholder="Name">
             <input name="loginpassword" type="password" placeholder="Password">
