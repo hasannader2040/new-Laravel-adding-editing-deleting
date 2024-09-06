@@ -11,13 +11,12 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        // Validate the input fields
         $incomingFields = $request->validate([
-            'loginname' => 'required',
+            'loginname' => 'required', // This will contain the email
             'loginpassword' => 'required'
         ]);
 
-        // Attempt to authenticate the user
+        // Attempt to authenticate using email and password
         if (auth()->attempt(['name' => $incomingFields['loginname'], 'password' => $incomingFields['loginpassword']])) {
             // Regenerate session after successful login
             $request->session()->regenerate();
@@ -29,6 +28,7 @@ class UserController extends Controller
             'login' => 'The provided credentials do not match our records.',
         ]);
     }
+
 
     public function logout()
     {

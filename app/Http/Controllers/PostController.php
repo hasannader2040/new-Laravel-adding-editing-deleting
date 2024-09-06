@@ -7,16 +7,31 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function actuallyUpdatePost(Post $post, Request $request) {
+        
+    }
+
+    public function showEditScreen(Post $post)
+    {
+        return view('edit-post', [Post => $post]);
+    }
+
     public function createPost(Request $request)
     {
         $incomingFields = $request->validate([
-            'title' => 'requied',
-            'body' => 'requied'
+            'title' => 'required',
+            'body' => 'required'
         ]);
-        $incomingFields['titile'] = strip_tags($incomingFields['title']);
+
+        // Sanitize input fields
+        $incomingFields['title'] = strip_tags($incomingFields['title']);
         $incomingFields['body'] = strip_tags($incomingFields['body']);
-        $incomingFields['body'] = strip_tags($incomingFields['body']);
+        $incomingFields['user_id'] = auth()->id(); // Assign the current authenticated user
+
+        // Create the post
         Post::create($incomingFields);
+
+        // Redirect to the home page
         return redirect('/');
     }
 }
